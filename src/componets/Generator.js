@@ -5,10 +5,10 @@ const API_KEY = process.env.NEXT_PUBLIC_CHATGPT_API;
 const systemMessage = {
   role: "system",
 
-  //instructions for what will be displayed
+  //instructions for what I want
   //wrapping code with ---starthtml--- ---endhtml---, because it will be required while extracting code from message
   content:
-    "only show html css and javascript in seperate part. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---",
+    "Write html, css and javascript as it will be in external file seperately. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---",
 };
 
 const Generator = ({ handleCurrentBuild }) => {
@@ -22,21 +22,23 @@ const Generator = ({ handleCurrentBuild }) => {
     setCommand(e.target.value);
   };
 
-  const handleSend = async (message) => {
-    const newMessage = {
-      message: command,
-      direction: "outgoing",
-      sender: "user",
-    };
+  const handleSend = async () => {
+    if (command.trim().length) {
+      const newMessage = {
+        message: command,
+        direction: "outgoing",
+        sender: "user",
+      };
 
-    const newMessages = [...messages, newMessage];
+      const newMessages = [...messages, newMessage];
 
-    setMessages(newMessages);
+      setMessages(newMessages);
 
-    // Initial system message to determine ChatGPT functionality
-    // How it responds, how it talks, etc.
-    setIsTyping(true);
-    await processMessageToChatGPT(newMessages);
+      // Initial system message to determine ChatGPT functionality
+      // How it responds, how it talks, etc.
+      setIsTyping(true);
+      await processMessageToChatGPT(newMessages);
+    }
   };
 
   async function processMessageToChatGPT(chatMessages) {
@@ -79,41 +81,34 @@ const Generator = ({ handleCurrentBuild }) => {
       })
       .then((data) => {
         setIsTyping(false);
+        setCommand("");
         handleCurrentBuild(data.choices[0].message.content);
-        // setMessages([
-        //   ...chatMessages,
-        //   {
-        //     message: data.choices[0].message.content,
-        //     sender: "ChatGPT",
-        //   },
-        // ]);
-        // setIsTyping(false);
       });
   }
-
-  //   useEffect(() => {
-  //     console.log(messages);
-  //   }, [messages]);
 
   return (
     <div>
       <div className="form-group mx-sm-3 mb-2 d-flex gap-2">
-        <input
+        <textarea
           type="text"
-          className="form-control"
+          className="form-control input-lg"
           placeholder="Write what you want to build"
           value={command}
           onChange={handleOnChangeCommand}
         />
+      </div>
+      <div className="form-group p-3 d-flex justify-content-end">
         {isTyping ? (
-          <button disabled>Generating</button>
+          <button className="btn btn-lg btn-dark" disabled>
+            Generating
+          </button>
         ) : (
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-lg btn-dark"
             onClick={handleSend}
           >
-            Send
+            Generate
           </button>
         )}
       </div>

@@ -5,7 +5,7 @@ body {
 }
 
 main {
-  overflow-x: hidden;
+  overflow: hidden;
   height: 100vh;
 }
 
@@ -17,7 +17,6 @@ header {
 
 .editor {
   height: 100vh;
-  border: 1px solid #000;
 }
 
 .code {
@@ -36,18 +35,12 @@ header {
   font-size: 14px;
   padding: 10px;
   box-sizing: border-box;
+  border-bottom: px solid #ccc;
 }
 
-.code textarea:first-child {
-  border-bottom: 1px solid #ccc;
-}
 
-.result {
-  width: 50%;
-  height: 100%;
-}
 
-.result iframe {
+#preview {
   width: 100%;
   height: 100%;
   border: none;

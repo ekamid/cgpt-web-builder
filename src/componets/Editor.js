@@ -52,27 +52,35 @@ const Editor = () => {
   return (
     <div>
       <header>
-        <h1>Code Editor</h1>
-        <Generator handleCurrentBuild={handleCurrentBuild} />
+        <h1>Easy Web Builder</h1>
       </header>
+      <div className="card">
+        <div className="card-body">
+          <Generator handleCurrentBuild={handleCurrentBuild} />
+        </div>
+      </div>
       <main>
-        <div className="editor">
-          <div className="code">
-            <textarea
-              value={html}
-              onChange={handleHtmlChange}
-              placeholder="Enter HTML code"
-            />
-            <textarea
-              value={css}
-              onChange={handleCssChange}
-              placeholder="Enter CSS code"
-            />
-            <textarea
-              value={js}
-              onChange={handleJsChange}
-              placeholder="Enter CSS code"
-            />
+        <div className="card">
+          <div className="card-body">
+            <div className="editor">
+              <div className="code">
+                <textarea
+                  value={html}
+                  onChange={handleHtmlChange}
+                  placeholder="Enter HTML code"
+                />
+                <textarea
+                  value={css}
+                  onChange={handleCssChange}
+                  placeholder="Enter CSS code"
+                />
+                <textarea
+                  value={js}
+                  onChange={handleJsChange}
+                  placeholder="Enter CSS code"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </main>
