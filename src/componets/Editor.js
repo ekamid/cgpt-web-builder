@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Generator from "@/componets/Generator";
 import Header from "@/componets/Header";
 import PreviousInstruction from "@/componets/PreviousInstruction";
+import { AppContext } from "@/context/AppContext";
 
 const Editor = () => {
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
   const [js, setJs] = useState("");
+
+  const { addToHistory, getFromHistory } = useContext(AppContext);
 
   function updatePreview() {
     const iframe = document.getElementById("preview");
@@ -29,11 +32,29 @@ const Editor = () => {
     setJs(event.target.value);
   }
 
-  const handleCurrentBuild = (message) => {
-    extractCode(message);
+  const getPreviousCode = (id) => {
+    const { html, css, js } = getFromHistory(id);
+    setHtml(html);
+    setCss(css);
+    setJs(js);
   };
 
-  const extractCode = (message) => {
+  const handleCurrentBuild = (command, message) => {
+    const { html, css, js } = extractAndSetCode(message);
+
+    setHtml(html);
+    setCss(css);
+    setJs(js);
+
+    addToHistory({
+      command,
+      html,
+      css,
+      js,
+    });
+  };
+
+  const extractAndSetCode = (message) => {
     const regexHtml = /---starthtml---([\s\S]*?)---endhtml---/;
     const regexCss = /---startcss---([\s\S]*?)---endcss---/;
     const regexJs = /---startjs---([\s\S]*?)---endjs---/;
@@ -41,11 +62,12 @@ const Editor = () => {
     const html = message.match(regexHtml) ? message.match(regexHtml)[1] : "";
     const css = message.match(regexCss) ? message.match(regexCss)[1] : "";
     const js = message.match(regexJs) ? message.match(regexJs)[1] : "";
-    setHtml(html);
-    setCss(css);
-    setJs(js);
 
-    // updatePreview();
+    return {
+      html,
+      css,
+      js,
+    };
   };
 
   useEffect(() => {
@@ -56,7 +78,7 @@ const Editor = () => {
     <EditorContainer>
       <Header />
       <Generator handleCurrentBuild={handleCurrentBuild} />
-      <PreviousInstruction />
+      <PreviousInstruction getPreviousCode={getPreviousCode} />
       <Container>
         <ColumnContainer>
           <Heading>HTML</Heading>

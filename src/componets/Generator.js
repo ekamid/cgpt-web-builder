@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 
 const API_KEY = process.env.NEXT_PUBLIC_CHATGPT_API;
@@ -82,8 +82,8 @@ const Generator = ({ handleCurrentBuild }) => {
       })
       .then((data) => {
         setIsGenerating(false);
+        handleCurrentBuild(command, data.choices[0].message.content);
         setCommand("");
-        handleCurrentBuild(data.choices[0].message.content);
       });
   }
 
@@ -95,7 +95,6 @@ const Generator = ({ handleCurrentBuild }) => {
         onChange={handleOnChangeCommand}
       />
       <ButtonGroup>
-        <button>Privious Instruction</button>
         {isGenerating ? (
           <button disabled>Generating</button>
         ) : (
@@ -134,7 +133,7 @@ const ButtonGroup = styled.div`
   justify-content: center;
   margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 
   button {
     background-color: #fff;
