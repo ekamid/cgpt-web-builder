@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import Generator from "@/componets/Generator";
+import Header from "@/componets/Header";
 
 const Editor = () => {
   const [html, setHtml] = useState("");
@@ -51,41 +53,86 @@ const Editor = () => {
 
   return (
     <div>
-      <header>
-        <h1>Easy Web Builder</h1>
-      </header>
-      <div className="card">
-        <div className="card-body">
-          <Generator handleCurrentBuild={handleCurrentBuild} />
-        </div>
-      </div>
+      <Header />
       <main>
-        <div className="card">
-          <div className="card-body">
-            <div className="editor">
-              <div className="code">
-                <textarea
-                  value={html}
-                  onChange={handleHtmlChange}
-                  placeholder="Enter HTML code"
-                />
-                <textarea
-                  value={css}
-                  onChange={handleCssChange}
-                  placeholder="Enter CSS code"
-                />
-                <textarea
-                  value={js}
-                  onChange={handleJsChange}
-                  placeholder="Enter CSS code"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <Generator handleCurrentBuild={handleCurrentBuild} />
+
+        <Container>
+          <ColumnContainer>
+            <Heading>HTML</Heading>
+            <EditorField
+              value={html}
+              onChange={handleHtmlChange}
+              placeholder="Enter HTML code"
+            />
+          </ColumnContainer>
+          <ColumnContainer>
+            <Heading>CSS</Heading>
+            <EditorField
+              value={css}
+              onChange={handleCssChange}
+              placeholder="Enter CSS code"
+            />
+          </ColumnContainer>
+          <ColumnContainer>
+            <Heading>JS</Heading>
+            <EditorField
+              value={js}
+              onChange={handleJsChange}
+              placeholder="Enter JS code"
+            />
+          </ColumnContainer>
+        </Container>
       </main>
     </div>
   );
 };
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+  overflow-y: auto;
+`;
+
+const ColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const Heading = styled.h2`
+  font-size: 18px;
+  color: #fff;
+  background-color: #000;
+  padding: 6px;
+  margin: 0;
+`;
+
+const EditorField = styled.textarea`
+  height: 380px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  resize: none;
+  font-size: 16px;
+  font-family: "Arial", sans-serif;
+  /* Styling the scrollbar */
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #888;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+`;
 export default Editor;

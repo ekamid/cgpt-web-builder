@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const API_KEY = process.env.NEXT_PUBLIC_CHATGPT_API;
 
@@ -16,7 +17,7 @@ const Generator = ({ handleCurrentBuild }) => {
 
   const [command, setCommand] = useState("");
 
-  const [isTyping, setIsTyping] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const handleOnChangeCommand = (e) => {
     setCommand(e.target.value);
@@ -36,7 +37,7 @@ const Generator = ({ handleCurrentBuild }) => {
 
       // Initial system message to determine ChatGPT functionality
       // How it responds, how it talks, etc.
-      setIsTyping(true);
+      setIsGenerating(true);
       await processMessageToChatGPT(newMessages);
     }
   };
@@ -80,40 +81,77 @@ const Generator = ({ handleCurrentBuild }) => {
         return data.json();
       })
       .then((data) => {
-        setIsTyping(false);
+        setIsGenerating(false);
         setCommand("");
         handleCurrentBuild(data.choices[0].message.content);
       });
   }
 
   return (
-    <div>
-      <div className="form-group mx-sm-3 mb-2 d-flex gap-2">
-        <textarea
-          type="text"
-          className="form-control input-lg"
-          placeholder="Write what you want to build"
-          value={command}
-          onChange={handleOnChangeCommand}
-        />
-      </div>
-      <div className="form-group p-3 d-flex justify-content-end">
-        {isTyping ? (
-          <button className="btn btn-lg btn-dark" disabled>
-            Generating
-          </button>
+    <Container>
+      <Textarea
+        placeholder="Write what you want to build"
+        value={command}
+        onChange={handleOnChangeCommand}
+      />
+      <ButtonGroup>
+        {isGenerating ? (
+          <button disabled>Generating</button>
         ) : (
-          <button
-            type="submit"
-            className="btn btn-lg btn-dark"
-            onClick={handleSend}
-          >
-            Generate
-          </button>
+          <button onClick={handleSend}>Generate</button>
         )}
-      </div>
-    </div>
+      </ButtonGroup>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  background-color: #f5f5f5;
+  padding: 10px;
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  resize: none;
+  font-size: 16px;
+  font-family: "Arial", sans-serif;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    color: #555;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "Arial", sans-serif;
+    margin: 0px 5px;
+    padding: 10px 20px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #555;
+      color: #fff;
+    }
+  }
+`;
 
 export default Generator;
