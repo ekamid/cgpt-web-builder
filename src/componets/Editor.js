@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Generator from "@/componets/Generator";
 import Header from "@/componets/Header";
-import PreviousInstruction from "@/componets/PreviousInstruction";
+import History from "@/componets/History";
 import { AppContext } from "@/context/AppContext";
 import { extractCode, updatePreview } from "@/utils/helpers";
 
@@ -21,6 +21,7 @@ const Editor = () => {
     });
   };
 
+  //previously genered code
   const getPreviousCode = (id) => {
     const { html, css, js } = getFromHistory(id);
     setCodes({ html, css, js });
@@ -34,6 +35,7 @@ const Editor = () => {
     addToHistory({ command, html, css, js });
   };
 
+  //if code changes, update preview
   useEffect(() => {
     updatePreview(codes);
   }, [codes]);
@@ -42,7 +44,6 @@ const Editor = () => {
     // Get the clicked element
     const clickedElement = event.target;
 
-    // Find the nearest parent element with the tag you want to style
     const parentElement = clickedElement.nextElementSibling;
 
     if (parentElement.style.visibility == "hidden") {
@@ -58,7 +59,7 @@ const Editor = () => {
     <EditorContainer>
       <Header />
       <Generator handleCurrentBuild={handleCurrentBuild} />
-      <PreviousInstruction getPreviousCode={getPreviousCode} />
+      <History getPreviousCode={getPreviousCode} />
       <Container>
         <ColumnContainer>
           <Heading onClick={handleCollapse}>HTML</Heading>

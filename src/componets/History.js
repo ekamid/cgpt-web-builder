@@ -2,21 +2,22 @@ import { useContext } from "react";
 import { AppContext } from "@/context/AppContext";
 import styled from "styled-components";
 
-const PreviousInstruction = ({ getPreviousCode }) => {
+const History = ({ getPreviousCode }) => {
   const { history } = useContext(AppContext);
   return (
     <div>
       {history.length ? <Heading>Previous Instructions</Heading> : null}
-      <InstructionList>
+      <List>
         {history.map((item, index) => (
-          <InstructionListItem
+          <Item
+            color={item.active ? "#0000FF" : "#000000"}
             onClick={() => getPreviousCode(item.id)}
             key={index}
           >
             {item.command}
-          </InstructionListItem>
+          </Item>
         ))}
-      </InstructionList>
+      </List>
     </div>
   );
 };
@@ -28,20 +29,21 @@ const Heading = styled.h4`
   list-style: decimal;
 `;
 
-const InstructionList = styled.ol`
+const List = styled.ol`
   font-size: 1.2rem;
   margin: 1rem 10px;
   padding: 0 0 0 2rem;
   list-style: decimal;
 `;
 
-const InstructionListItem = styled.li`
+const Item = styled.li`
   margin-bottom: 0.7rem;
   cursor: pointer;
+  color: ${(props) => props.color || "#000"};
 
   &:hover {
     text-decoration: underline;
   }
 `;
 
-export default PreviousInstruction;
+export default History;

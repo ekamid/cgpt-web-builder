@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 const Loader = ({ size, color, border }) => {
+  const [text, setText] = useState("Generating");
+
+  useEffect(() => {
+    const texts = [
+      "Wait few seconds",
+      "Patience! Patience! Patience!",
+      "Almost There!",
+    ];
+    let i = 0;
+    setInterval(() => {
+      i = i === texts.length ? 0 : i + 1;
+      setText(texts[i]);
+    }, 3000);
+  }, []);
+
   return (
     <Container>
       <Spinner size={size} color={color} border={border} />
-      <Text>Generating</Text>
+      <Text>{text}</Text>
     </Container>
   );
 };

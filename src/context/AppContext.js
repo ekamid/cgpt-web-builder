@@ -12,14 +12,35 @@ const AppProvider = ({ children }) => {
 
   const addToHistory = ({ command, html, css, js }) => {
     setHistory((prev) => [
-      ...prev,
-      { id: prev.length + 1, command: command, html: html, css: css, js: js },
+      ...prev.map((item) => ({ ...item, active: false })),
+      {
+        id: prev.length + 1,
+        command: command,
+        html: html,
+        css: css,
+        js: js,
+        active: true,
+      },
     ]);
   };
 
   const getFromHistory = (id) => {
-    const data = history.filter((item) => item.id === id);
-    return data[0];
+    let selected;
+    history.forEach((item) => {
+      if (item.id === id) {
+        selected = item;
+      }
+    });
+
+    setHistory((prev) => [
+      ...prev.map((item) =>
+        item.id === id ? { ...item, active: true } : { ...item, active: false }
+      ),
+    ]);
+    // const data = history.filter((item) => item.id === id);
+    // return data[0];
+
+    return selected;
   };
 
   return (
