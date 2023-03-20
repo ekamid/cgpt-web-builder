@@ -9,7 +9,7 @@ const systemMessage = {
   //instructions for what I want
   //wrapping code with ---starthtml--- ---endhtml---, because it will be required while extracting code from message
   content:
-    "Write html, css and javascript as it will be in external file seperately. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---",
+    "Write code. Html should be withouth html, body, head and script tag. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---",
 };
 
 const Generator = ({ handleCurrentBuild }) => {
@@ -95,6 +95,7 @@ const Generator = ({ handleCurrentBuild }) => {
         onChange={handleOnChangeCommand}
       />
       <ButtonGroup>
+        <button>Privious Instruction</button>
         {isGenerating ? (
           <button disabled>Generating</button>
         ) : (
@@ -118,7 +119,7 @@ const Textarea = styled.textarea`
   border-radius: 5px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   resize: none;
-  font-size: 16px;
+  font-size: 20px;
   font-family: "Arial", sans-serif;
   width: -webkit-fill-available;
 
@@ -133,7 +134,7 @@ const ButtonGroup = styled.div`
   justify-content: center;
   margin-top: 10px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   button {
     background-color: #fff;

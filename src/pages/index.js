@@ -23,5 +23,5 @@ export default function Home() {
 const Container = styled.main`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-gap: 10px;
+  grid-gap: 20px;
 `;

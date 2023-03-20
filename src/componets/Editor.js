@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Generator from "@/componets/Generator";
 import Header from "@/componets/Header";
+import PreviousInstruction from "@/componets/PreviousInstruction";
 
 const Editor = () => {
   const [html, setHtml] = useState("");
@@ -55,6 +56,7 @@ const Editor = () => {
     <EditorContainer>
       <Header />
       <Generator handleCurrentBuild={handleCurrentBuild} />
+      <PreviousInstruction />
       <Container>
         <ColumnContainer>
           <Heading>HTML</Heading>
