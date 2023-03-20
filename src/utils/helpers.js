@@ -1,6 +1,6 @@
 //extract html, css and javascript from the message
 //in system message I defined how that ai will send the data
-//there we instructed that the code will wrap by ---starthtml--- ---endhtml--- (html, for example)
+//instructed that the code will wrap by ---starthtml--- ---endhtml--- (html, for example)
 
 const extractCode = (message) => {
   const regexHtml = /---starthtml---([\s\S]*?)---endhtml---/;

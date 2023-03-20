@@ -7,7 +7,9 @@ const API_KEY = process.env.NEXT_PUBLIC_CHATGPT_API;
 const systemMessage = {
   role: "system",
 
-  //instructions for what I want
+  //extract html, css and javascript from the message
+  //I defined how that ai will send the data
+  //instructed that the code will wrap by ---starthtml--- ---endhtml--- (html, for example)
   //wrapping code with ---starthtml--- ---endhtml---, because it will be required while extracting code from message
   content:
     "Write code. Html should be withouth html, body, head and script tag. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---",
@@ -17,8 +19,6 @@ const Generator = ({ handleCurrentBuild }) => {
   const [messages, setMessages] = useState([]);
 
   const [command, setCommand] = useState("");
-
-  // const [isGenerating, setIsGenerating] = useState(false);
 
   const { isGenerating, toggleIsGenerating } = useContext(AppContext);
 
@@ -37,10 +37,6 @@ const Generator = ({ handleCurrentBuild }) => {
       const newMessages = [...messages, newMessage];
 
       setMessages(newMessages);
-
-      // Initial system message to determine ChatGPT functionality
-      // How it responds, how it talks, etc.
-      // setIsGenerating(true);
       toggleIsGenerating();
       await processMessageToChatGPT(newMessages);
     }
@@ -63,7 +59,7 @@ const Generator = ({ handleCurrentBuild }) => {
     });
 
     // Get the request body set up with the model we plan to use
-    // and the messages which we formatted above. We add a system message in the front to'
+    // and the messages which we formatted above. We add a system message in the front to
     // determine how we want chatGPT to act.
     const apiRequestBody = {
       model: "gpt-3.5-turbo",
