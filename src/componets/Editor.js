@@ -4,75 +4,55 @@ import Generator from "@/componets/Generator";
 import Header from "@/componets/Header";
 import PreviousInstruction from "@/componets/PreviousInstruction";
 import { AppContext } from "@/context/AppContext";
+import { extractCode, updatePreview } from "@/utils/helpers";
 
 const Editor = () => {
-  const [html, setHtml] = useState("");
-  const [css, setCss] = useState("");
-  const [js, setJs] = useState("");
+  const [codes, setCodes] = useState({
+    html: "",
+    css: "",
+    js: "",
+  });
 
   const { addToHistory, getFromHistory } = useContext(AppContext);
 
-  function updatePreview() {
-    const iframe = document.getElementById("preview");
-    const iframeContent = iframe.contentDocument;
-    iframeContent.open();
-    iframeContent.write(`<style>${css}</style>${html}<script>${js}</script>`);
-    iframeContent.close();
-  }
-
-  function handleHtmlChange(event) {
-    setHtml(event.target.value);
-  }
-
-  function handleCssChange(event) {
-    setCss(event.target.value);
-  }
-
-  function handleJsChange(event) {
-    setJs(event.target.value);
-  }
+  const handleCodes = (e) => {
+    setCodes({
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const getPreviousCode = (id) => {
     const { html, css, js } = getFromHistory(id);
-    setHtml(html);
-    setCss(css);
-    setJs(js);
+    setCodes({ html, css, js });
   };
 
   const handleCurrentBuild = (command, message) => {
     const { html, css, js } = extractCode(message);
 
-    setHtml(html);
-    setCss(css);
-    setJs(js);
+    setCodes({ html, css, js });
 
-    addToHistory({
-      command,
-      html,
-      css,
-      js,
-    });
-  };
-
-  const extractCode = (message) => {
-    const regexHtml = /---starthtml---([\s\S]*?)---endhtml---/;
-    const regexCss = /---startcss---([\s\S]*?)---endcss---/;
-    const regexJs = /---startjs---([\s\S]*?)---endjs---/;
-
-    const html = message.match(regexHtml) ? message.match(regexHtml)[1] : "";
-    const css = message.match(regexCss) ? message.match(regexCss)[1] : "";
-    const js = message.match(regexJs) ? message.match(regexJs)[1] : "";
-
-    return {
-      html,
-      css,
-      js,
-    };
+    addToHistory({ command, html, css, js });
   };
 
   useEffect(() => {
-    updatePreview();
-  }, [html, css, js]);
+    updatePreview(codes);
+  }, [codes]);
+
+  const handleCollapse = (event) => {
+    // Get the clicked element
+    const clickedElement = event.target;
+
+    // Find the nearest parent element with the tag you want to style
+    const parentElement = clickedElement.nextElementSibling;
+
+    if (parentElement.style.visibility == "hidden") {
+      parentElement.style.height = "380px";
+      parentElement.style.visibility = "visible";
+    } else {
+      parentElement.style.height = 0;
+      parentElement.style.visibility = "hidden";
+    }
+  };
 
   return (
     <EditorContainer>
@@ -81,26 +61,29 @@ const Editor = () => {
       <PreviousInstruction getPreviousCode={getPreviousCode} />
       <Container>
         <ColumnContainer>
-          <Heading>HTML</Heading>
+          <Heading onClick={handleCollapse}>HTML</Heading>
           <EditorField
-            value={html}
-            onChange={handleHtmlChange}
+            name="html"
+            value={codes.html}
+            onChange={handleCodes}
             placeholder="Enter HTML code"
           />
         </ColumnContainer>
         <ColumnContainer>
-          <Heading>CSS</Heading>
+          <Heading onClick={handleCollapse}>CSS</Heading>
           <EditorField
-            value={css}
-            onChange={handleCssChange}
+            name="css"
+            value={codes.css}
+            onChange={handleCodes}
             placeholder="Enter CSS code"
           />
         </ColumnContainer>
         <ColumnContainer>
-          <Heading>JS</Heading>
+          <Heading onClick={handleCollapse}>JS</Heading>
           <EditorField
-            value={js}
-            onChange={handleJsChange}
+            name="js"
+            value={codes.js}
+            onChange={handleCodes}
             placeholder="Enter JS code"
           />
         </ColumnContainer>
@@ -134,6 +117,7 @@ const Heading = styled.h2`
   background-color: #000;
   padding: 6px;
   margin: 0;
+  cursor: pointer;
 `;
 
 const EditorField = styled.textarea`
