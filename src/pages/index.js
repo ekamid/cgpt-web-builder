@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Loader from "@/componets/Loader";
 import { useContext } from "react";
 import { AppContext } from "@/context/AppContext";
+import FindInGithub from "@/componets/FindInGithub";
 
 const Home = () => {
   const { isGenerating } = useContext(AppContext);
@@ -25,6 +26,7 @@ const Home = () => {
         <Preview />
       </Container>
       {isGenerating ? <Loader /> : null}
+      <FindInGithub />
     </div>
   );
 };

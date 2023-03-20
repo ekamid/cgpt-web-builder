@@ -12,7 +12,7 @@ const systemMessage = {
   //instructed that the code will wrap by ---starthtml--- ---endhtml--- (html, for example)
   //wrapping code with ---starthtml--- ---endhtml---, because it will be required while extracting code from message
   content:
-    "Write code. Html should be withouth html, body, head and script tag. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---",
+    "Write code. Html should be without html, body, head and script tag. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---. And ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs--- will not be between  ---starthtml--- ---endhtml---",
 };
 
 const Generator = ({ handleCurrentBuild }) => {
