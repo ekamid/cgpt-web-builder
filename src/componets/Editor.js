@@ -40,7 +40,7 @@ const Editor = () => {
   };
 
   const handleCurrentBuild = (command, message) => {
-    const { html, css, js } = extractAndSetCode(message);
+    const { html, css, js } = extractCode(message);
 
     setHtml(html);
     setCss(css);
@@ -54,7 +54,7 @@ const Editor = () => {
     });
   };
 
-  const extractAndSetCode = (message) => {
+  const extractCode = (message) => {
     const regexHtml = /---starthtml---([\s\S]*?)---endhtml---/;
     const regexCss = /---startcss---([\s\S]*?)---endcss---/;
     const regexJs = /---startjs---([\s\S]*?)---endjs---/;

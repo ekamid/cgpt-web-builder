@@ -1,3 +1,4 @@
+import { AppContext } from "@/context/AppContext";
 import { useState, useContext } from "react";
 import styled from "styled-components";
 
@@ -17,7 +18,9 @@ const Generator = ({ handleCurrentBuild }) => {
 
   const [command, setCommand] = useState("");
 
-  const [isGenerating, setIsGenerating] = useState(false);
+  // const [isGenerating, setIsGenerating] = useState(false);
+
+  const { isGenerating, toggleIsGenerating } = useContext(AppContext);
 
   const handleOnChangeCommand = (e) => {
     setCommand(e.target.value);
@@ -37,7 +40,8 @@ const Generator = ({ handleCurrentBuild }) => {
 
       // Initial system message to determine ChatGPT functionality
       // How it responds, how it talks, etc.
-      setIsGenerating(true);
+      // setIsGenerating(true);
+      toggleIsGenerating();
       await processMessageToChatGPT(newMessages);
     }
   };
@@ -81,7 +85,8 @@ const Generator = ({ handleCurrentBuild }) => {
         return data.json();
       })
       .then((data) => {
-        setIsGenerating(false);
+        // setIsGenerating(false);
+        toggleIsGenerating();
         handleCurrentBuild(command, data.choices[0].message.content);
         setCommand("");
       });
