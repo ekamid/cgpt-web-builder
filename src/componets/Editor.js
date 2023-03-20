@@ -52,48 +52,50 @@ const Editor = () => {
   }, [html, css, js]);
 
   return (
-    <div>
+    <EditorContainer>
       <Header />
-      <main>
-        <Generator handleCurrentBuild={handleCurrentBuild} />
-
-        <Container>
-          <ColumnContainer>
-            <Heading>HTML</Heading>
-            <EditorField
-              value={html}
-              onChange={handleHtmlChange}
-              placeholder="Enter HTML code"
-            />
-          </ColumnContainer>
-          <ColumnContainer>
-            <Heading>CSS</Heading>
-            <EditorField
-              value={css}
-              onChange={handleCssChange}
-              placeholder="Enter CSS code"
-            />
-          </ColumnContainer>
-          <ColumnContainer>
-            <Heading>JS</Heading>
-            <EditorField
-              value={js}
-              onChange={handleJsChange}
-              placeholder="Enter JS code"
-            />
-          </ColumnContainer>
-        </Container>
-      </main>
-    </div>
+      <Generator handleCurrentBuild={handleCurrentBuild} />
+      <Container>
+        <ColumnContainer>
+          <Heading>HTML</Heading>
+          <EditorField
+            value={html}
+            onChange={handleHtmlChange}
+            placeholder="Enter HTML code"
+          />
+        </ColumnContainer>
+        <ColumnContainer>
+          <Heading>CSS</Heading>
+          <EditorField
+            value={css}
+            onChange={handleCssChange}
+            placeholder="Enter CSS code"
+          />
+        </ColumnContainer>
+        <ColumnContainer>
+          <Heading>JS</Heading>
+          <EditorField
+            value={js}
+            onChange={handleJsChange}
+            placeholder="Enter JS code"
+          />
+        </ColumnContainer>
+      </Container>
+    </EditorContainer>
   );
 };
+
+const EditorContainer = styled.div`
+  grid-column: span 4;
+`;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: 100vh;
-  overflow-y: auto;
+  width: 100%;
+  padding: 10px;
+  background-color: #f2f1f0;
 `;
 
 const ColumnContainer = styled.div`

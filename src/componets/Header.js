@@ -13,6 +13,7 @@ const HeaderContainer = styled.header`
   background-color: #000;
   color: #fff;
   padding: 20px 10px;
+  width: 100%;
 `;
 
 const Heading = styled.h1`

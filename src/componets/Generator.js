@@ -106,12 +106,12 @@ const Generator = ({ handleCurrentBuild }) => {
 };
 
 const Container = styled.div`
-  background-color: #f5f5f5;
   padding: 10px;
+  width: 100%;
+  background-color: #f2f1f0;
 `;
 
 const Textarea = styled.textarea`
-  width: 100%;
   height: 150px;
   padding: 10px;
   border: none;
@@ -120,6 +120,7 @@ const Textarea = styled.textarea`
   resize: none;
   font-size: 16px;
   font-family: "Arial", sans-serif;
+  width: -webkit-fill-available;
 
   &:focus {
     outline: none;
