@@ -6,7 +6,7 @@ const History = ({ getPreviousCode }) => {
   const { history } = useContext(AppContext);
   return (
     <div>
-      {history.length ? <Heading>Previous Instructions</Heading> : null}
+      {history.length ? <Heading>History</Heading> : null}
       <List>
         {history.map((item, index) => (
           <Item

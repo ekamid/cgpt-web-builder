@@ -1,30 +1,18 @@
 import { AppContext } from "@/context/AppContext";
-import { useState, useContext } from "react";
+import useMessageWithChatGPT from "@/hooks/useMessageWithChatGPT";
+import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
-const systemMessage = {
-  role: "system",
-
-  //extract html, css and javascript from the message
-  //I defined how that ai will send the data
-  //instructed that the code will wrap by ---starthtml--- ---endhtml--- (html, for example)
-  //wrapping code with ---starthtml--- ---endhtml---, because it will be required while extracting code from message
-  content:
-    "Write code. Html should be without html, body, head and script tag. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---. And ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs--- will not be between  ---starthtml--- ---endhtml---",
-};
-
 const Generator = ({ handleCurrentBuild }) => {
   const [messages, setMessages] = useState([]);
-
   const [command, setCommand] = useState("");
 
   const { isGenerating, toggleIsGenerating } = useContext(AppContext);
 
-  const handleOnChangeCommand = (e) => {
-    setCommand(e.target.value);
-  };
+  const { content, isLoading, error, refetch, removeContent } =
+    useMessageWithChatGPT(messages, API_KEY);
 
   const handleSend = async () => {
     if (command.trim().length) {
@@ -35,58 +23,24 @@ const Generator = ({ handleCurrentBuild }) => {
       };
 
       const newMessages = [...messages, newMessage];
-
       setMessages(newMessages);
-      toggleIsGenerating();
-      await processMessageToChatGPT(newMessages);
+
+      refetch();
     }
   };
 
-  async function processMessageToChatGPT(chatMessages) {
-    // messages is an array of messages
-    // Format messages for chatGPT API
-    // API is expecting objects in format of { role: "user" or "assistant", "content": "message here"}
-    // So we need to reformat
+  useEffect(() => {
+    toggleIsGenerating(isLoading);
+    if (content && !error) {
+      handleCurrentBuild(command, content);
+      removeContent();
+      setCommand("");
+    }
+  }, [isLoading, content, error]);
 
-    let apiMessages = chatMessages.map((messageObject) => {
-      let role = "";
-      if (messageObject.sender === "ChatGPT") {
-        role = "assistant";
-      } else {
-        role = "user";
-      }
-      return { role: role, content: messageObject.message };
-    });
-
-    // Get the request body set up with the model we plan to use
-    // and the messages which we formatted above. We add a system message in the front to
-    // determine how we want chatGPT to act.
-    const apiRequestBody = {
-      model: "gpt-3.5-turbo",
-      messages: [
-        systemMessage, // The system message DEFINES the logic of our chatGPT
-        ...apiMessages, // The messages from our chat with ChatGPT
-      ],
-    };
-
-    await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiRequestBody),
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        // setIsGenerating(false);
-        toggleIsGenerating();
-        handleCurrentBuild(command, data.choices[0].message.content);
-        setCommand("");
-      });
-  }
+  const handleOnChangeCommand = (e) => {
+    setCommand(e.target.value);
+  };
 
   return (
     <Container>

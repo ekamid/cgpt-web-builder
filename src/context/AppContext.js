@@ -6,13 +6,12 @@ const AppProvider = ({ children }) => {
   const [history, setHistory] = useState([]);
   const [isGenerating, setIsgenerating] = useState(false);
 
-  const toggleIsGenerating = () => {
-    setIsgenerating((prev) => !prev);
+  const toggleIsGenerating = (data) => {
+    setIsgenerating(data);
   };
 
   const addToHistory = ({ command, html, css, js }) => {
     setHistory((prev) => [
-      ...prev.map((item) => ({ ...item, active: false })),
       {
         id: prev.length + 1,
         command: command,
@@ -21,6 +20,7 @@ const AppProvider = ({ children }) => {
         js: js,
         active: true,
       },
+      ...prev.map((item) => ({ ...item, active: false })),
     ]);
   };
 

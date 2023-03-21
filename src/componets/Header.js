@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Header = () => {
   return (
     <HeaderContainer>
-      <Heading>ChatGPT Web Builder</Heading>
+      <Heading>cGPT Web Builder</Heading>
     </HeaderContainer>
   );
 };

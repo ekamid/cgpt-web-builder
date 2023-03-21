@@ -16,7 +16,7 @@ const Home = () => {
       }}
     >
       <Head>
-        <title>ChatGPT Web Builder</title>
+        <title>cGPT Web Builder</title>
         <meta name="description" content="A basic web builder using ChatGPT" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 const Loader = ({ size, color, border, texts }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(texts.length ? texts[0] : "");
 
   useEffect(() => {
     if (texts.length) {
       let i = 0;
       setInterval(() => {
-        i = i === texts.length ? 0 : i + 1;
         setText(texts[i]);
+        i = i === texts.length ? 0 : i + 1;
       }, 3000);
     }
   }, []);
