@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
-const Loader = ({ size, color, border }) => {
-  const [text, setText] = useState("Generating");
+const Loader = ({ size, color, border, texts }) => {
+  const [text, setText] = useState("");
 
   useEffect(() => {
-    const texts = [
-      "Wait few seconds",
-      "Patience! Patience! Patience!",
-      "Almost There!",
-    ];
-    let i = 0;
-    setInterval(() => {
-      i = i === texts.length ? 0 : i + 1;
-      setText(texts[i]);
-    }, 3000);
+    if (texts.length) {
+      let i = 0;
+      setInterval(() => {
+        i = i === texts.length ? 0 : i + 1;
+        setText(texts[i]);
+      }, 3000);
+    }
   }, []);
 
   return (

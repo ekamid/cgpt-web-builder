@@ -25,7 +25,16 @@ const Home = () => {
         <Editor />
         <Preview />
       </Container>
-      {isGenerating ? <Loader /> : null}
+      {isGenerating ? (
+        <Loader
+          texts={[
+            "Generating...",
+            "Wait few seconds",
+            "Patience! Patience! Patience!",
+            "Almost There!",
+          ]}
+        />
+      ) : null}
       <FindInGithub />
     </div>
   );
