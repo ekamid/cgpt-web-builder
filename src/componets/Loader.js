@@ -9,7 +9,7 @@ const Loader = ({ size, color, border, texts }) => {
       let i = 0;
       setInterval(() => {
         setText(texts[i]);
-        i = i === texts.length ? 0 : i + 1;
+        i = i === texts.length - 1 ? 0 : i + 1;
       }, 3000);
     }
   }, [texts]);
