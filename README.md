@@ -2,7 +2,7 @@
   <h1 align="center">cgpt-web-builder</h1>
 
   <p align="center">
-    A basic web builder using ChatGPT API
+    A basic Ai-powered web builder!
     <br />
     <br />
     <a href="https://cgpt-web-builder.vercel.app/" target="_blank">View Demo</a>
