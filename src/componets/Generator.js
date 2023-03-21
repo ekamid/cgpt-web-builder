@@ -2,7 +2,7 @@ import { AppContext } from "@/context/AppContext";
 import { useState, useContext } from "react";
 import styled from "styled-components";
 
-const API_KEY = process.env.NEXT_PUBLIC_CHATGPT_API;
+const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
 const systemMessage = {
   role: "system",
