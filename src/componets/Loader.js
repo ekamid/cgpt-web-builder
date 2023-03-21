@@ -12,7 +12,7 @@ const Loader = ({ size, color, border, texts }) => {
         i = i === texts.length ? 0 : i + 1;
       }, 3000);
     }
-  }, []);
+  }, [texts]);
 
   return (
     <Container>

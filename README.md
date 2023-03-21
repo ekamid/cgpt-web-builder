@@ -37,7 +37,7 @@ npm install
 Rename the .env.example to .env and add your OpenAI API Key
 
 ```bash
-NEXT_PUBLIC_OPENAI_API_KEY=<<your openai api key>>
+NEXT_PUBLIC_OPENAI_API_KEY=your-openai-api-key
 ```
 
 In order to run the application in dev mode type the following command

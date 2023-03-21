@@ -13,12 +13,13 @@ const extractCode = (message) => {
   return { html, css, js };
 };
 
+//updating preview
 const updatePreview = (codes) => {
-  const iframe = document.getElementById("preview");
+  const iframe = document.getElementById("preview"); //iframe with id 'preview' in Preview component
   const iframeContent = iframe.contentDocument;
   iframeContent.open();
   iframeContent.write(
-    `<style>${codes.css}</style>${codes.html}<script>${codes.js}</script>`
+    `<style>${codes.css}</style>${codes.html}<script>${codes.js}</script>` //write content in iFrame with the extracted code from message
   );
   iframeContent.close();
 };

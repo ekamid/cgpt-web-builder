@@ -1,4 +1,3 @@
-import { set } from "nprogress";
 import { useState, useEffect } from "react";
 
 const systemMessage = {
