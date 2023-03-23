@@ -1,5 +1,5 @@
-import { AppContext } from "@/context/AppContext";
-import useMessageWithChatGPT from "@/hooks/useMessageWithChatGPT";
+import { AppContext } from "../context/AppContext";
+import useMessageWithChatGPT from "../hooks/useMessageWithChatGPT";
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 

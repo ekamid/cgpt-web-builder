@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "13.2.4",
+    "@types/styled-components": "^5.1.26",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
@@ -17,5 +18,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.9"
+  },
+  "devDependencies": {
+    "@types/node": "18.15.5",
+    "@types/react": "^18.0.28",
+    "typescript": "^5.0.2"
   }
 }

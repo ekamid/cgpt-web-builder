@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import Generator from "@/componets/Generator";
-import Header from "@/componets/Header";
-import History from "@/componets/History";
-import { AppContext } from "@/context/AppContext";
-import { extractCode, updatePreview } from "@/utils/helpers";
+import Generator from "./Generator";
+import Header from "./Header";
+import History from "./History";
+import { AppContext } from "../context/AppContext";
+import { extractCode, updatePreview } from "../utils/helpers";
 
 const Editor = () => {
-  const [codes, setCodes] = useState({
+  const [codes, setCodes] = useState<any>({
     html: "",
     css: "",
     js: "",

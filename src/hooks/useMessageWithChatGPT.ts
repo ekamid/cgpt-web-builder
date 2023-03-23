@@ -11,17 +11,28 @@ const systemMessage = {
     "Write code. Html should be without html, body, head and script tag. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---. And ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs--- will not be between  ---starthtml--- ---endhtml---",
 };
 
-const useMessageWithChatGPT = (messages, apiKey) => {
-  const [content, setContent] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [messageChanged, setMessageChanged] = useState(false);
+interface IMesssageWithChatGPTReturn {
+  content: string;
+  isLoading: boolean;
+  error: string;
+  refetch: () => void;
+  removeContent: () => void;
+}
 
-  const refetch = () => {
+const useMessageWithChatGPT = (
+  messages: any,
+  apiKey: string
+): IMesssageWithChatGPTReturn => {
+  const [content, setContent] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [messageChanged, setMessageChanged] = useState<boolean>(false);
+
+  const refetch = (): void => {
     setMessageChanged(true);
   };
 
-  const removeContent = () => {
+  const removeContent = (): void => {
     setContent(null);
   };
 
@@ -52,7 +63,7 @@ const useMessageWithChatGPT = (messages, apiKey) => {
       ],
     };
 
-    const fetchMessages = async () => {
+    const fetchMessages = async (): Promise<void> => {
       try {
         const response = await fetch(
           "https://api.openai.com/v1/chat/completions",

@@ -1,11 +1,11 @@
 import Head from "next/head";
-import Editor from "@/componets/Editor";
-import Preview from "@/componets/Preview";
+import Editor from "../componets/Editor";
+import Preview from "../componets/Preview";
 import styled from "styled-components";
-import Loader from "@/componets/Loader";
+import Loader from "../componets/Loader";
 import { useContext } from "react";
-import { AppContext } from "@/context/AppContext";
-import FindInGithub from "@/componets/FindInGithub";
+import { AppContext } from "../context/AppContext";
+import FindInGithub from "../componets/FindInGithub";
 
 const Home = () => {
   const { isGenerating } = useContext(AppContext);

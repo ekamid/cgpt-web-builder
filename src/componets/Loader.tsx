@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
-const Loader = ({ size, color, border, texts }) => {
+interface Props {
+  size?: number;
+  color?: string;
+  border?: string;
+  texts?: string[];
+}
+
+const Loader = ({ size, color, border, texts }: Props) => {
   const [text, setText] = useState(texts.length ? texts[0] : "");
 
   useEffect(() => {
@@ -45,7 +52,7 @@ const Container = styled.div`
   gap: 20px;
 `;
 
-const Spinner = styled.div`
+const Spinner = styled.div<any>`
   border-radius: 50%;
   width: ${(props) => props.size || "75px"};
   height: ${(props) => props.size || "75px"};
