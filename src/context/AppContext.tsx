@@ -19,7 +19,7 @@ const AppProvider: FC<Props> = ({ children }: Props) => {
   const addToHistory = ({ command, html, css, js }: IHistory): void => {
     setHistory((prev) => [
       {
-        d: prev.length + 1,
+        id: prev.length + 1,
         command,
         html,
         css,
