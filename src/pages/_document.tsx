@@ -1,8 +1,19 @@
-import Document from "next/document";
+import Document, {
+  DocumentContext,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from "next/document";
 import { ServerStyleSheet } from "styled-components";
+import React from "react";
 
-export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+class MyDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext): Promise<{
+    styles: JSX.Element;
+    html: string;
+    head?: (JSX.Element | null)[] | undefined;
+  }> {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
@@ -27,4 +38,18 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
+
+  render(): JSX.Element {
+    return (
+      <Html>
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }
+
+export default MyDocument;

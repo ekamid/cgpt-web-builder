@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import FindInGithub from "../componets/FindInGithub";
 
-const Home = () => {
+const Home = (): JSX.Element => {
   const { isGenerating } = useContext(AppContext);
   return (
     <div
