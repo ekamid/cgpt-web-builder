@@ -34,7 +34,7 @@ const Editor = (): JSX.Element => {
     setCodes({ html, css, js });
   };
 
-  const handleCurrentBuild = (command, message) => {
+  const handleCurrentBuild = (command: string, message: string) => {
     const { html, css, js } = extractCode(message);
 
     setCodes({ html, css, js });

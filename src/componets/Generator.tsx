@@ -3,11 +3,20 @@ import useMessageWithChatGPT from "../hooks/useMessageWithChatGPT";
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 
-const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+const API_KEY: string = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
-const Generator = ({ handleCurrentBuild }) => {
-  const [messages, setMessages] = useState([]);
-  const [command, setCommand] = useState("");
+interface Props {
+  handleCurrentBuild: (command: string, content: string) => void;
+}
+
+interface Message {
+  sender: string;
+  message: string;
+}
+
+const Generator: React.FC<Props> = ({ handleCurrentBuild }): JSX.Element => {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [command, setCommand] = useState<string>("");
 
   const { isGenerating, toggleIsGenerating } = useContext(AppContext);
 
@@ -22,7 +31,7 @@ const Generator = ({ handleCurrentBuild }) => {
         sender: "user",
       };
 
-      const newMessages = [...messages, newMessage];
+      const newMessages: Message[] = [...messages, newMessage];
       setMessages(newMessages);
 
       refetch();
@@ -38,7 +47,7 @@ const Generator = ({ handleCurrentBuild }) => {
     }
   }, [isLoading, content, error]);
 
-  const handleOnChangeCommand = (e) => {
+  const handleOnChangeCommand = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCommand(e.target.value);
   };
 

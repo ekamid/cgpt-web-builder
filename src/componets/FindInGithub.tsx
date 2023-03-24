@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-// import Image from "next/image";
-// import { FaGithub } from "react-icons/fa";
 
-const FindInGithub = () => {
+const FindInGithub = (): JSX.Element => {
   return (
     <FloatingButton
       target="_blank"
