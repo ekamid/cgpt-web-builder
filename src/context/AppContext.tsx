@@ -8,7 +8,7 @@ interface Props {
 }
 
 // React.FC can only be a return type of JSX.Element or equivalent.
-const AppProvider: FC<Props> = ({ children }) => {
+const AppProvider: FC<Props> = ({ children }: Props) => {
   const [history, setHistory] = useState<IHistory[]>([]);
   const [isGenerating, setIsgenerating] = useState<boolean>(false);
 
@@ -19,11 +19,11 @@ const AppProvider: FC<Props> = ({ children }) => {
   const addToHistory = ({ command, html, css, js }: IHistory): void => {
     setHistory((prev) => [
       {
-        id: prev.length + 1,
-        command: command,
-        html: html,
-        css: css,
-        js: js,
+        d: prev.length + 1,
+        command,
+        html,
+        css,
+        js,
         active: true,
       },
       ...prev.map((item: IHistory) => ({ ...item, active: false })),
