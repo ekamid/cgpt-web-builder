@@ -10,6 +10,10 @@ const systemMessage = {
   content:
     "Write code. Html should be without html, body, head and script tag. Wrap html code with ---starthtml--- ---endhtml---, css code with ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs---. And ---startcss--- ---endcss--- and javascript code ---startjs--- ---endjs--- will not be between  ---starthtml--- ---endhtml---",
 };
+interface IMessageObject {
+  sender: string;
+  message: string;
+}
 
 interface IMesssageWithChatGPTReturn {
   content: string;
@@ -20,7 +24,7 @@ interface IMesssageWithChatGPTReturn {
 }
 
 const useMessageWithChatGPT = (
-  messages: any,
+  messages: IMessageObject[],
   apiKey: string
 ): IMesssageWithChatGPTReturn => {
   const [content, setContent] = useState<string | null>(null);
