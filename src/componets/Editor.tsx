@@ -6,8 +6,14 @@ import History from "./History";
 import { AppContext } from "../context/AppContext";
 import { extractCode, updatePreview } from "../utils/helpers";
 
-const Editor = () => {
-  const [codes, setCodes] = useState<any>({
+interface Codes {
+  html: string;
+  css: string;
+  js: string;
+}
+
+const Editor = (): JSX.Element => {
+  const [codes, setCodes] = useState<Codes>({
     html: "",
     css: "",
     js: "",
@@ -15,14 +21,15 @@ const Editor = () => {
 
   const { addToHistory, getFromHistory } = useContext(AppContext);
 
-  const handleCodes = (e) => {
+  const handleCodes = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setCodes({
+      ...codes,
       [e.target.name]: e.target.value,
     });
   };
 
   //previously genered code
-  const getPreviousCode = (id) => {
+  const getPreviousCode = (id: number): void => {
     const { html, css, js } = getFromHistory(id);
     setCodes({ html, css, js });
   };
@@ -40,17 +47,19 @@ const Editor = () => {
     updatePreview(codes);
   }, [codes]);
 
-  const handleCollapse = (event) => {
+  const handleCollapse = (
+    event: React.MouseEvent<HTMLHeadingElement>
+  ): void => {
     // Get the clicked element
-    const clickedElement = event.target;
+    const clickedElement = event.target as HTMLElement;
 
-    const parentElement = clickedElement.nextElementSibling;
+    const parentElement = clickedElement.nextElementSibling as HTMLElement;
 
-    if (parentElement.style.visibility == "hidden") {
+    if (parentElement.style.visibility === "hidden") {
       parentElement.style.height = "380px";
       parentElement.style.visibility = "visible";
     } else {
-      parentElement.style.height = 0;
+      parentElement.style.height = "0";
       parentElement.style.visibility = "hidden";
     }
   };

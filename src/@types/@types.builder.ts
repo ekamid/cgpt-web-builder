@@ -1,3 +1,9 @@
+export interface ICodes {
+  html: string;
+  css: string;
+  js: string;
+}
+
 export interface IHistory {
   id?: number;
   command: string;
