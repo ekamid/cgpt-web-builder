@@ -2,7 +2,10 @@ import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import styled from "styled-components";
 
-const History = ({ getPreviousCode }) => {
+interface HistoryProps {
+  getPreviousCode: (id: number) => void;
+}
+const History: React.FC<HistoryProps> = ({ getPreviousCode }) => {
   const { history } = useContext(AppContext);
   return (
     <div>

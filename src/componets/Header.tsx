@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Header = () => {
+const Header = (): JSX.Element => {
   return (
     <HeaderContainer>
       <Heading>cGPT Web Builder</Heading>

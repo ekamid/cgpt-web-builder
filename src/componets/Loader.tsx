@@ -8,17 +8,19 @@ interface Props {
   texts?: string[];
 }
 
-const Loader = ({ size, color, border, texts }: Props) => {
-  const [text, setText] = useState(texts.length ? texts[0] : "");
+const Loader = ({ size, color, border, texts }: Props): JSX.Element => {
+  const [text, setText] = useState<string>(texts.length ? texts[0] : "");
 
   useEffect(() => {
-    if (texts.length) {
-      let i = 0;
-      setInterval(() => {
+    let interval: NodeJS.Timeout;
+    if (texts?.length) {
+      let i: number = 0;
+      interval = setInterval(() => {
         setText(texts[i]);
         i = i === texts.length - 1 ? 0 : i + 1;
       }, 3000);
     }
+    return () => clearInterval(interval);
   }, [texts]);
 
   return (

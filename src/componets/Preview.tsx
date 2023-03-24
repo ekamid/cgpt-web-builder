@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Preview = () => {
+const Preview = (): JSX.Element => {
   return (
     <Container>
       <iframe id="preview"></iframe>
