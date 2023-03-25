@@ -16,9 +16,10 @@ const Editor = () => {
   const { addToHistory, getFromHistory } = useContext(AppContext);
 
   const handleCodes = (e) => {
-    setCodes({
+    setCodes((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   //previously genered code

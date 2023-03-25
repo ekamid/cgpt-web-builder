@@ -15,6 +15,8 @@ const extractCode = (message) => {
 
 //updating preview
 const updatePreview = (codes) => {
+  console.log("preview codes");
+  console.log(codes);
   const iframe = document.getElementById("preview"); //iframe with id 'preview' in Preview component
   const iframeContent = iframe.contentDocument;
   iframeContent.open();
