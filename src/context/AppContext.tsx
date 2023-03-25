@@ -1,5 +1,5 @@
 import React, { createContext, FC, ReactElement, useState } from "react";
-import { AppContextType, IHistory } from "../@types/@types.builder";
+import { AppContextType, IHistory } from "../@types/interface";
 
 const AppContext = createContext<AppContextType | null>(null);
 

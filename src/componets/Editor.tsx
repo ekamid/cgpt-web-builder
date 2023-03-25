@@ -2,18 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Generator from "./Generator";
 import Header from "./Header";
-import History from "./History";
-import { AppContext } from "../context/AppContext";
-import { extractCode, updatePreview } from "../utils/helpers";
-
-interface Codes {
-  html: string;
-  css: string;
-  js: string;
-}
+import History from "@/componets/History";
+import { AppContext } from "@/context/AppContext";
+import { extractCode, updatePreview } from "@/utils/helpers";
+import { ICodes } from "@/@types/interface";
 
 const Editor = (): JSX.Element => {
-  const [codes, setCodes] = useState<Codes>({
+  const [codes, setCodes] = useState<ICodes>({
     html: "",
     css: "",
     js: "",

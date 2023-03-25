@@ -1,13 +1,9 @@
-interface Codes {
-  html: string;
-  css: string;
-  js: string;
-}
+import { ICodes } from "@/@types/interface";
 
 //extract html, css and javascript from the message
 //in system message I defined how that ai will send the data
 //instructed that the code will wrap by ---starthtml--- ---endhtml--- (html, for example)
-const extractCode = (message: string): Codes => {
+const extractCode = (message: string): ICodes => {
   const regexHtml = /---starthtml---([\s\S]*?)---endhtml---/;
   const regexCss = /---startcss---([\s\S]*?)---endcss---/;
   const regexJs = /---startjs---([\s\S]*?)---endjs---/;
@@ -18,7 +14,7 @@ const extractCode = (message: string): Codes => {
   return { html, css, js };
 };
 
-const updatePreview = (codes: Codes): void => {
+const updatePreview = (codes: ICodes): void => {
   const iframe = document.getElementById("preview") as HTMLIFrameElement; //iframe with id 'preview' in Preview component
   const iframeContent = iframe.contentDocument!;
   iframeContent.open();
