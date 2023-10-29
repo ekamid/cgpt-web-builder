@@ -65,13 +65,19 @@ const useMessageWithChatGPT = (messages, apiKey) => {
             body: JSON.stringify(apiRequestBody),
           }
         );
+
         const responseData = await response.json();
+
+        if (responseData.error) {
+          throw new Error(responseData.error.message)
+        }
+
         setContent(responseData.choices[0].message.content);
 
-        // setData(responseData);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       }
+
       setIsLoading(false);
       setMessageChanged(false);
     };

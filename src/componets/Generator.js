@@ -2,12 +2,14 @@ import { AppContext } from "@/context/AppContext";
 import useMessageWithChatGPT from "@/hooks/useMessageWithChatGPT";
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
+import ErrorModal from "./ErrorModal";
 
 const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
 const Generator = ({ handleCurrentBuild }) => {
   const [messages, setMessages] = useState([]);
   const [command, setCommand] = useState("");
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
 
   const { isGenerating, toggleIsGenerating } = useContext(AppContext);
 
@@ -36,6 +38,11 @@ const Generator = ({ handleCurrentBuild }) => {
       removeContent();
       setCommand("");
     }
+
+    if (error) {
+      setIsErrorModalOpen(true)
+    }
+
   }, [isLoading, content, error]);
 
   const handleOnChangeCommand = (e) => {
@@ -56,6 +63,14 @@ const Generator = ({ handleCurrentBuild }) => {
           <button onClick={handleSend}>Generate</button>
         )}
       </ButtonGroup>
+
+      {isErrorModalOpen && !isLoading && (
+        <ErrorModal
+          title="Error"
+          message={error || "Something went wrong!"}
+          onClose={() => setIsErrorModalOpen(false)}
+        />
+      )}
     </Container>
   );
 };
